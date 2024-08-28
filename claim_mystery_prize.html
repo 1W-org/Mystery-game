@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mystery Box Game</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.3); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #000;
+        }
+
+        input[type="text"]::placeholder, input[type="password"]::placeholder {
+            color: #000;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        #muteButton {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        #muteButton img {
+            width: 24px;
+            height: 24px;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay loop muted id="backgroundVideo">
+        <source src="your-video-file-name.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="container">
+        <h1>
+            Hello Detective! 🕵️‍♂️<br>
+            Are you ready to reveal the mystery? 🎉
+        </h1>
+        <form id="revealForm">
+            <input type="text" id="name" placeholder="Enter your name" required><br>
+            <input type="text" id="mysteryPassword" placeholder="What is the mystery password?" required><br>
+            <input type="submit" value="Reveal the Secret!">
+        </form>
+    </div>
+
+    <button id="muteButton" onclick="toggleMute()">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/mute.png" alt="Mute/Unmute">
+    </button>
+
+    <script>
+        document.getElementById('revealForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const name = document.getElementById('name').value;
+            const mysteryPassword = document.getElementById('mysteryPassword').value;
+
+            // Construct the Gmail link
+            const emailSubject = "Shhh... I Know the Secret!";
+            const emailBody = `Hello, Game Master,%0D%0A%0D%0AGuess what? I've cracked the code, and it's ... ${mysteryPassword}! 🎉%0D%0A%0D%0ANow, I know you're dying to know if I got it right. Can you check it out and confirm I'm the ultimate detective?%0D%0A%0D%0ACheers,%0D%0A${name}`;
+            const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=rkrashik@gmail.com&su=${encodeURIComponent(emailSubject)}&body=${emailBody}`;
+
+            // Open the Gmail link
+            window.open(gmailLink, '_blank');
+        });
+
+        function toggleMute() {
+            const video = document.getElementById("backgroundVideo");
+            const muteButton = document.getElementById("muteButton").children[0];
+            if (video.muted) {
+                video.muted = false;
+                muteButton.src = "https://img.icons8.com/ios-filled/50/ffffff/speaker.png";
+            } else {
+                video.muted = true;
+                muteButton.src = "https://img.icons8.com/ios-filled/50/ffffff/mute.png";
+            }
+        }
+    </script>
+</body>
+</html>
